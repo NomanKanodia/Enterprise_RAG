@@ -1,8 +1,10 @@
 from pathlib import Path
 from fastapi import UploadFile
-from app.schemas.upload import DocumentMetadata
 import shutil
 import uuid
+
+from app.schemas.upload import DocumentMetadata
+from app.document.loader import load_document
 
 UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
@@ -22,3 +24,15 @@ def save_file(file: UploadFile) -> DocumentMetadata:
         stored_filename=unique_filename,
         path=str(file_path)
     )
+
+def process_upload(file: UploadFile):
+    document = save_file(file)
+
+    pages = load_document(
+        Path(document.path)
+    )
+
+    return {
+        "document": document,
+        "pages": pages
+    }

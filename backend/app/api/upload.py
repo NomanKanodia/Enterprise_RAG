@@ -1,6 +1,6 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException
-from app.services.upload_service import save_file
-from app.schemas.upload import UploadResponse
+from app.services.upload_service import process_upload
+from app.schemas.document import DocumentProcessingResponse
 
 router = APIRouter()
 
@@ -8,7 +8,7 @@ ALLOWED_EXTENSIONS = {".pdf", ".docx", ".txt"}
 
 @router.post(
     "/upload",
-    response_model=UploadResponse
+    response_model=DocumentProcessingResponse
 )
 async def upload_file(file: UploadFile = File(...)):
     extension = "." + file.filename.split(".")[-1].lower()
@@ -19,9 +19,10 @@ async def upload_file(file: UploadFile = File(...)):
             detail="Unsupported file type. Only PDF, DOCX and TXT are allowed."
         )
 
-    saved_file = save_file(file)
+    result = process_upload(file)
 
     return {
         "message": "File uploaded successfully",
-        "file": saved_file
+        "document": result["document"],
+        "pages": result["pages"]
     }
