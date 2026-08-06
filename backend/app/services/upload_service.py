@@ -5,6 +5,7 @@ import uuid
 
 from app.schemas.upload import DocumentMetadata
 from app.document.loader import load_document
+from app.chunking.chunker import chunk_document
 
 UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
@@ -31,8 +32,11 @@ def process_upload(file: UploadFile):
     pages = load_document(
         Path(document.path)
     )
+    
+    chunks = chunk_document(pages)
 
     return {
         "document": document,
-        "pages": pages
+        "pages": pages,
+        "chunks": chunks
     }

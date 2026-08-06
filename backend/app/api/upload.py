@@ -24,5 +24,6 @@ async def upload_file(file: UploadFile = File(...)):
     return {
         "message": "File uploaded successfully",
         "document": result["document"],
-        "pages": result["pages"]
+        "pages": result["pages"],
+        "chunks": result["chunks"]
     }
