@@ -5,7 +5,9 @@ import uuid
 
 from app.schemas.upload import DocumentMetadata
 from app.document.loader import load_document
-from app.chunking.chunker import chunk_document
+from app.chunking.langchain_chunker import chunk_document
+from app.embeddings.embedder import embed_chunks
+from app.vectorstore.faiss_store import FAISSStore
 
 UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
@@ -34,6 +36,15 @@ def process_upload(file: UploadFile):
     )
     
     chunks = chunk_document(pages)
+
+    embedded_chunks = embed_chunks(chunks)
+    vector_store = FAISSStore.load_or_create()
+
+    vector_store.add_embeddings(
+        embedded_chunks
+    )
+
+    vector_store.save()
 
     return {
         "document": document,
