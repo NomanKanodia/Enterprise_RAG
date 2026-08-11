@@ -7,6 +7,7 @@ class ChatRequest(BaseModel):
 
 
 class ChatSource(BaseModel):
+    document: str
     page_number: int
 
 

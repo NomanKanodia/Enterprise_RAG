@@ -1,6 +1,126 @@
+# from app.generation.llm import generate_answer
+# from app.retrieval.retriever import Retriever
+# from app.vectorstore.faiss_store import FAISSStore
+# from app.vectorstore.document_store import DocumentStore
+
+
+# def answer_query(
+#     query: str,
+#     top_k: int = 3
+# ):
+
+#     # Load the persistent vector store
+#     vector_store = FAISSStore.load()
+
+#     # Create retriever
+#     retriever = Retriever(
+#         vector_store
+#     )
+
+#     # Retrieve relevant chunks
+#     retrieved_chunks = retriever.retrieve(
+#         query,
+#         top_k=top_k
+#     )
+
+#     # No relevant information found
+#     if not retrieved_chunks:
+#         return {
+#             "answer": (
+#                 "I could not find the answer "
+#                 "in the uploaded documents."
+#             ),
+#             "sources": []
+#         }
+
+#     # Load document metadata
+#     document_store = DocumentStore()
+
+#     # Build context for the LLM
+#     context_parts = []
+
+#     for chunk in retrieved_chunks:
+
+#         context_parts.append(
+#             f"[Document ID: {chunk.document_id} | "
+#             f"Page {chunk.page_number}]\n"
+#             f"{chunk.text}"
+#         )
+
+#     context = "\n\n".join(context_parts)
+
+#     # Build RAG prompt
+#     prompt = f"""
+# You are an enterprise document assistant.
+
+# Answer the user's question using ONLY the information
+# provided in the context below.
+
+# If the answer cannot be found in the context,
+# say that you could not find the answer in the uploaded documents.
+
+# Do not use outside knowledge.
+# Do not make up information.
+
+# Context:
+# --------------------
+# {context}
+# --------------------
+
+# User Question:
+# {query}
+
+# Answer:
+# """
+
+#     # Generate answer
+#     answer = generate_answer(
+#         prompt
+#     )
+
+#     # Build unique sources
+#     sources = []
+#     seen_sources = set()
+
+#     for chunk in retrieved_chunks:
+
+#         document = document_store.get_document(
+#             chunk.document_id
+#         )
+
+#         if document is None:
+#             continue
+
+#         source_key = (
+#             chunk.document_id,
+#             chunk.page_number
+#         )
+
+#         # Avoid duplicate document + page combinations
+#         if source_key in seen_sources:
+#             continue
+
+#         seen_sources.add(source_key)
+
+#         sources.append(
+#             {
+#                 "document": document["original_filename"],
+#                 "page_number": chunk.page_number
+#             }
+#         )
+
+#     return {
+#         "answer": answer,
+#         "sources": sources
+#     }
+
+
+
+
 from app.generation.llm import generate_answer
 from app.retrieval.retriever import Retriever
 from app.vectorstore.faiss_store import FAISSStore
+from app.vectorstore.document_store import DocumentStore
 
 
 def answer_query(
@@ -8,18 +128,22 @@ def answer_query(
     top_k: int = 3
 ):
 
+    # Load the persistent vector store
     vector_store = FAISSStore.load()
 
+    # Create retriever
     retriever = Retriever(
         vector_store
     )
 
-    retrieved_chunks = retriever.retrieve(
+    # Retrieve relevant chunks
+    retrieval_results = retriever.retrieve(
         query,
         top_k=top_k
     )
 
-    if not retrieved_chunks:
+    # No sufficiently relevant information found
+    if not retrieval_results:
         return {
             "answer": (
                 "I could not find the answer "
@@ -28,16 +152,27 @@ def answer_query(
             "sources": []
         }
 
+    # Load document metadata
+    document_store = DocumentStore()
+
+    # Build context
     context_parts = []
 
-    for chunk in retrieved_chunks:
+    for result in retrieval_results:
+
+        chunk = result["chunk"]
+
         context_parts.append(
-            f"[Page {chunk.page_number}]\n"
+            f"[Document ID: {chunk.document_id} | "
+            f"Page {chunk.page_number}]\n"
             f"{chunk.text}"
         )
 
-    context = "\n\n".join(context_parts)
+    context = "\n\n".join(
+        context_parts
+    )
 
+    # Build RAG prompt
     prompt = f"""
 You are an enterprise document assistant.
 
@@ -61,23 +196,44 @@ User Question:
 Answer:
 """
 
+    # Generate answer
     answer = generate_answer(
         prompt
     )
 
-    source_pages = sorted(
-        set(
-            chunk.page_number
-            for chunk in retrieved_chunks
-        )
-    )
+    # Build unique sources
+    sources = []
+    seen_sources = set()
 
-    sources = [
-        {
-            "page_number": page_number
-        }
-        for page_number in source_pages
-    ]
+    for result in retrieval_results:
+
+        chunk = result["chunk"]
+
+        document = document_store.get_document(
+            chunk.document_id
+        )
+
+        if document is None:
+            continue
+
+        source_key = (
+            chunk.document_id,
+            chunk.page_number
+        )
+
+        if source_key in seen_sources:
+            continue
+
+        seen_sources.add(
+            source_key
+        )
+
+        sources.append(
+            {
+                "document": document["original_filename"],
+                "page_number": chunk.page_number
+            }
+        )
 
     return {
         "answer": answer,

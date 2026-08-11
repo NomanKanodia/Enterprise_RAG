@@ -30,11 +30,38 @@ class FAISSStore:
 
         self.chunks.extend(embedded_chunks)
 
+    # def search(
+    #     self,
+    #     query_embedding: list[float],
+    #     top_k: int = 3
+    # ) -> list[EmbeddedChunk]:
+
+    #     if self.index.ntotal == 0:
+    #         return []
+
+    #     query_vector = np.array(
+    #         [query_embedding],
+    #         dtype="float32"
+    #     )
+
+    #     distances, indices = self.index.search(
+    #         query_vector,
+    #         min(top_k, self.index.ntotal)
+    #     )
+
+    #     results = []
+
+    #     for index in indices[0]:
+    #         if index != -1:
+    #             results.append(self.chunks[index])
+
+    #     return results
+
     def search(
         self,
         query_embedding: list[float],
         top_k: int = 3
-    ) -> list[EmbeddedChunk]:
+    ):
 
         if self.index.ntotal == 0:
             return []
@@ -51,9 +78,19 @@ class FAISSStore:
 
         results = []
 
-        for index in indices[0]:
-            if index != -1:
-                results.append(self.chunks[index])
+        for distance, index in zip(
+            distances[0],
+            indices[0]
+        ):
+            if index == -1:
+                continue
+
+            results.append(
+                {
+                    "chunk": self.chunks[index],
+                    "distance": float(distance)
+                }
+            )
 
         return results
 

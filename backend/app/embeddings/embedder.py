@@ -26,6 +26,7 @@ def embed_chunks(
     for chunk, embedding in zip(chunks, embeddings):
         embedded_chunks.append(
             EmbeddedChunk(
+                document_id=chunk.document_id,
                 page_number=chunk.page_number,
                 chunk_number=chunk.chunk_number,
                 text=chunk.text,

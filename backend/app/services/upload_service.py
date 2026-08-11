@@ -8,6 +8,7 @@ from app.document.loader import load_document
 from app.chunking.langchain_chunker import chunk_document
 from app.embeddings.embedder import embed_chunks
 from app.vectorstore.faiss_store import FAISSStore
+from app.vectorstore.document_store import DocumentStore
 
 UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
@@ -15,7 +16,9 @@ UPLOAD_DIR.mkdir(exist_ok=True)
 
 def save_file(file: UploadFile) -> DocumentMetadata:
     extension = Path(file.filename).suffix
-    unique_filename = f"{uuid.uuid4()}{extension}"
+
+    document_id = str(uuid.uuid4())
+    unique_filename = f"{document_id}{extension}"
 
     file_path = UPLOAD_DIR / unique_filename
 
@@ -23,6 +26,7 @@ def save_file(file: UploadFile) -> DocumentMetadata:
         shutil.copyfileobj(file.file, buffer)
 
     return DocumentMetadata (
+        document_id=document_id,
         original_filename=file.filename,
         stored_filename=unique_filename,
         path=str(file_path)
@@ -31,11 +35,17 @@ def save_file(file: UploadFile) -> DocumentMetadata:
 def process_upload(file: UploadFile):
     document = save_file(file)
 
+    document_store = DocumentStore()
+
+    document_store.add_document(
+        document
+    )
+
     pages = load_document(
         Path(document.path)
     )
     
-    chunks = chunk_document(pages)
+    chunks = chunk_document(pages, document_id=document.document_id)
 
     embedded_chunks = embed_chunks(chunks)
     vector_store = FAISSStore.load_or_create()

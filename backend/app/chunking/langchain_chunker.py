@@ -17,7 +17,8 @@ text_splitter = RecursiveCharacterTextSplitter(
 
 
 def chunk_document(
-    pages: list[PageContent]
+    pages: list[PageContent],
+    document_id: str
 ) -> list[DocumentChunk]:
 
     chunks = []
@@ -31,6 +32,7 @@ def chunk_document(
 
             chunks.append(
                 DocumentChunk(
+                    document_id=document_id,
                     page_number=page.page_number,
                     chunk_number=chunk_number,
                     text=chunk
