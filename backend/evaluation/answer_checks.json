@@ -1,0 +1,105 @@
+[
+  {
+    "id": 1,
+    "required_any": [
+      ["image of the company"],
+      ["uniform expense reimbursement"],
+      ["band", "grade"],
+      ["cost effective", "productivity"]
+    ]
+  },
+  {
+    "id": 2,
+    "required_all": [
+      ["NAGA LIMITED"]
+    ],
+    "required_any": [
+      ["all employees"],
+      ["all employees of NAGA LIMITED"]
+    ]
+  },
+  {
+    "id": 3,
+    "required_any": [
+      ["25%"]
+    ]
+  },
+  {
+    "id": 4,
+    "required_any": [
+      ["125%"]
+    ]
+  },
+  {
+    "id": 5,
+    "required_any": [
+      ["2 days"],
+      ["within 2 days"]
+    ]
+  },
+  {
+    "id": 6,
+    "required_any": [
+      ["self-attestation"],
+      ["self attestation"]
+    ]
+  },
+  {
+    "id": 7,
+    "required_any": [
+      ["cannot be claimed as a combined limit"],
+      ["cannot be claimed", "combined limit"],
+      ["not be claimed", "combined limit"]
+    ]
+  },
+  {
+    "id": 8,
+    "required_all": [
+      ["mumbai"],
+      ["delhi"],
+      ["kolkata"]
+    ]
+  },
+  {
+    "id": 9,
+    "required_any": [
+      ["more than 6 hours"],
+      ["over 6 hours"],
+      ["6 hours"]
+    ]
+  },
+  {
+    "id": 10,
+    "required_any": [
+      ["50 kms"],
+      ["50 km"],
+      ["50 kilometers"]
+    ]
+  },
+  {
+    "id": 11,
+    "required_any": [
+      ["3 or more people"],
+      ["3 or more"],
+      ["three or more people"]
+    ]
+  },
+  {
+    "id": 12,
+    "required_any": [
+      ["no driver charges"],
+      ["driver charges are not paid"],
+      ["driver charges shall be paid"],
+      ["driver charges shall not be paid"]
+    ]
+  },
+  {
+    "id": 13,
+    "required_any": [
+      ["01st april 2014"],
+      ["1st april 2014"],
+      ["1 april 2014"],
+      ["april 2014"]
+    ]
+  }
+]

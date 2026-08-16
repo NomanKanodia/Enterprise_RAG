@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "question": "How many pages long is the PDF?",
+    "expected_document": "sample-local-pdf.pdf",
+    "expected_pages": [1]
+  },
+  {
+    "id": 2,
+    "question": "What Latin phrase appears in the document?",
+    "expected_document": "sample-local-pdf.pdf",
+    "expected_pages": [1]
+  },
+  {
+    "id": 3,
+    "question": "What is the objective of the Travel Policy?",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [1]
+  },
+  {
+    "id": 4,
+    "question": "Who is eligible under the Travel Policy?",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [1, 2]
+  },
+  {
+    "id": 5,
+    "question": "What percentage of the eligible lodging amount can an employee claim when staying at a relative or friend's home?",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [1]
+  },
+  {
+    "id": 6,
+    "question": "What is the maximum lodging claim allowed for twin sharing?",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [1]
+  },
+  {
+    "id": 7,
+    "question": "Within how many days must travelling advance be settled after the tour programme?",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [2]
+  },
+  {
+    "id": 8,
+    "question": "What can an employee do if bills are not available in a remote area?",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [2]
+  },
+  {
+    "id": 9,
+    "question": "Can boarding and lodging be claimed as a combined limit?",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [1, 2]
+  },
+  {
+    "id": 10,
+    "question": "Which cities are classified as metros?",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [2]
+  },
+  {
+    "id": 11,
+    "question": "How many hours must a non-sales employee spend outside the office to be eligible for food reimbursement?",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [3]
+  },
+  {
+    "id": 12,
+    "question": "What is the maximum distance allowed for official travel by personal bike in a day?",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [3]
+  },
+  {
+    "id": 13,
+    "question": "What is the company's annual leave policy?",
+    "expected_document": null,
+    "expected_pages": []
+  },
+  {
+    "id": 14,
+    "question": "What is the company's employee bonus policy?",
+    "expected_document": null,
+    "expected_pages": []
+  },
+  {
+    "id": 15,
+    "question": "What is the company's work-from-home policy?",
+    "expected_document": null,
+    "expected_pages": []
+  },
+  {
+    "id": 16,
+    "question": "What are the three types of expenses highlighted under the Travel Policy?",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [1]
+  },
+  {
+    "id": 17,
+    "question": "What is the purpose of defining Band and Grade-wise travel entitlements?",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [1]
+  },
+  {
+    "id": 18,
+    "question": "Can employees stay at a friend's home during official travel?",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [1]
+  },
+  {
+    "id": 19,
+    "question": "What percentage can an employee claim without producing bills when staying with relatives or friends?",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [1]
+  },
+  {
+    "id": 20,
+    "question": "Who must sanction the tour programme?",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [2]
+  },
+  {
+    "id": 21,
+    "question": "On what basis should travel on company account be conducted?",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [2]
+  },
+  {
+    "id": 22,
+    "question": "What happens if an employee already has a balance in their account when requesting travelling advance?",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [2]
+  },
+  {
+    "id": 23,
+    "question": "Who validates travel claims after approval by the reporting manager?",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [2]
+  },
+  {
+    "id": 24,
+    "question": "What are the four categories used to classify cities and towns?",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [2]
+  },
+  {
+    "id": 25,
+    "question": "Name two cities classified as state capitals or hill stations.",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [2]
+  },
+  {
+    "id": 26,
+    "question": "When are non-sales employees eligible for local field work food reimbursement?",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [3]
+  },
+  {
+    "id": 27,
+    "question": "How many people are required for group travel beyond 200 km by personal car?",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [3]
+  },
+  {
+    "id": 28,
+    "question": "Are driver charges paid for official travel using a personal car?",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [3]
+  },
+  {
+    "id": 29,
+    "question": "When did the Travel Policy come into effect?",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [1, 4]
+  },
+  {
+    "id": 30,
+    "question": "What is the company's medical reimbursement policy?",
+    "expected_document": null,
+    "expected_pages": []
+  }
+]

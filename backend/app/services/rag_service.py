@@ -125,7 +125,7 @@ from app.vectorstore.document_store import DocumentStore
 
 def answer_query(
     query: str,
-    top_k: int = 3
+    top_k: int = 5
 ):
 
     # Load the persistent vector store
@@ -176,24 +176,44 @@ def answer_query(
     prompt = f"""
 You are an enterprise document assistant.
 
-Answer the user's question using ONLY the information
-provided in the context below.
+Your task is to answer the user's question using ONLY the
+information explicitly provided in the context.
 
-If the answer cannot be found in the context,
-say that you could not find the answer in the uploaded documents.
+IMPORTANT RULES:
 
-Do not use outside knowledge.
-Do not make up information.
+1. Do not use outside knowledge.
+2. Do not invent or assume information.
+3. If the answer is present in the context, answer it directly.
+4. Preserve important factual details from the context, especially:
+   - names of organizations or companies
+   - eligibility and scope statements
+   - dates
+   - percentages
+   - monetary amounts
+   - distances
+   - durations
+   - limits
+   - names of cities, people, or categories
+5. If the question asks "who", identify the exact people,
+   employees, organization, or category stated in the context.
+6. If the question asks "how many", "how much", "what percentage",
+   "how long", or "when", include the exact value from the context.
+7. Do not replace a specific statement with a vague generalization.
+8. If multiple pieces of information are required to answer the
+   question, include all relevant pieces supported by the context.
+9. If the answer cannot be found in the context, respond exactly:
+   "I could not find the answer in the uploaded documents."
+10. Do not mention information that is not supported by the context.
 
-Context:
---------------------
+## Context
+
 {context}
---------------------
 
-User Question:
+## User Question
+
 {query}
 
-Answer:
+## Answer
 """
 
     # Generate answer

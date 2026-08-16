@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "question": "What is the objective of the Travel Policy?",
+    "expected_answer": "The objective is to maintain the image of the company, ensure uniform expense reimbursement for categorized employees on official travel, establish Band/Grade-wise expense entitlements, and ensure expenses are cost effective while optimizing productivity.",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [1]
+  },
+  {
+    "id": 2,
+    "question": "Who is eligible under the Travel Policy?",
+    "expected_answer": "The policy applies to all employees of NAGA LIMITED.",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [1]
+  },
+  {
+    "id": 3,
+    "question": "What percentage can an employee claim when staying at a relative or friend's home?",
+    "expected_answer": "The employee can claim 25% of the eligible amount without producing bills.",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [1]
+  },
+  {
+    "id": 4,
+    "question": "What is the maximum lodging claim for twin sharing?",
+    "expected_answer": "The claim can be made up to 125% of the eligible amount of the Senior level employee.",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [1]
+  },
+  {
+    "id": 5,
+    "question": "Within how many days must travelling advance be settled?",
+    "expected_answer": "Travelling advance must be settled within 2 days after the tour programme.",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [2]
+  },
+  {
+    "id": 6,
+    "question": "What can an employee do if bills are not available in a remote area?",
+    "expected_answer": "The employee can claim the eligible amount by self-attestation.",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [2]
+  },
+  {
+    "id": 7,
+    "question": "Can boarding and lodging be claimed as a combined limit?",
+    "expected_answer": "No. Boarding and lodging cannot be claimed as a combined limit.",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [2]
+  },
+  {
+    "id": 8,
+    "question": "Which cities are classified as metros?",
+    "expected_answer": "Mumbai, Delhi, and Kolkata are classified as metros.",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [2]
+  },
+  {
+    "id": 9,
+    "question": "When are non-sales employees eligible for food reimbursement during field work?",
+    "expected_answer": "They are eligible for food reimbursement when they spend more than 6 hours on out-of-office work.",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [3]
+  },
+  {
+    "id": 10,
+    "question": "What is the maximum distance for official travel by personal bike in one day?",
+    "expected_answer": "Official travel by personal bike must not exceed 50 km on any day.",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [3]
+  },
+  {
+    "id": 11,
+    "question": "How many people are required for group travel beyond 200 km by personal car?",
+    "expected_answer": "Group travel beyond 200 km may be encouraged when there are 3 or more people.",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [3]
+  },
+  {
+    "id": 12,
+    "question": "Are driver charges paid for official travel using a personal car?",
+    "expected_answer": "No. Driver charges are not paid.",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [3]
+  },
+  {
+    "id": 13,
+    "question": "When did the Travel Policy come into effect?",
+    "expected_answer": "The policy came into effect on 1st April 2014.",
+    "expected_document": "Travel Policy.pdf",
+    "expected_pages": [4]
+  },
+  {
+    "id": 14,
+    "question": "What is the company's annual leave policy?",
+    "expected_answer": null,
+    "expected_document": null,
+    "expected_pages": []
+  },
+  {
+    "id": 15,
+    "question": "What is the company's medical reimbursement policy?",
+    "expected_answer": null,
+    "expected_document": null,
+    "expected_pages": []
+  }
+]

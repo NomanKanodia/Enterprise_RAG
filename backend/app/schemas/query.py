@@ -5,7 +5,7 @@ from app.schemas.retrieval import RetrievedChunk
 
 class QueryRequest(BaseModel):
     query: str
-    top_k: int = 3
+    top_k: int = 5
 
 
 class QueryResponse(BaseModel):

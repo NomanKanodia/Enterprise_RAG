@@ -3,10 +3,10 @@ from pydantic import BaseModel
 
 class ChatRequest(BaseModel):
     query: str
-    top_k: int = 3
+    top_k: int = 5
 
 
-class ChatSource(BaseModel):
+class Source(BaseModel):
     document: str
     page_number: int
 
@@ -14,4 +14,4 @@ class ChatSource(BaseModel):
 class ChatResponse(BaseModel):
     query: str
     answer: str
-    sources: list[ChatSource]
+    sources: list[Source]
