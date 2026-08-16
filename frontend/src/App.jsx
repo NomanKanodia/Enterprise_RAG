@@ -10,6 +10,7 @@ function App() {
   const [answer, setAnswer] = useState("");
   const [sources, setSources] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
 
   const uploadDocument = async () => {
@@ -19,8 +20,9 @@ function App() {
     }
 
     setError("");
-    setUploadStatus("Uploading...");
-    
+    setUploadStatus("");
+    setUploading(true);
+
     const formData = new FormData();
     formData.append("file", file);
 
@@ -37,11 +39,12 @@ function App() {
       }
 
       setUploadStatus(
-        `Uploaded successfully: ${data.document.original_filename}`
+        `${data.document.original_filename} indexed successfully.`
       );
     } catch (err) {
-      setUploadStatus("");
       setError(err.message);
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -83,108 +86,193 @@ function App() {
     }
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" && event.ctrlKey) {
+      askQuestion();
+    }
+  };
+
   return (
     <div className="app">
+
       <header className="header">
-        <div>
-          <h1>Enterprise Knowledge Assistant</h1>
-          <p>
-            Ask questions about your organization's documents using RAG.
-          </p>
+        <div className="header-content">
+          <div className="logo">
+            <div className="logo-icon">R</div>
+
+            <div>
+              <h1>Enterprise Knowledge Assistant</h1>
+              <p>
+                Ask questions about your organization's documents.
+              </p>
+            </div>
+          </div>
+
+          <div className="status">
+            <span className="status-dot"></span>
+            RAG System Online
+          </div>
         </div>
       </header>
 
       <main className="container">
 
-        <section className="card">
-          <h2>Upload Document</h2>
-
-          <div className="upload-row">
-            <input
-              type="file"
-              accept=".pdf,.docx,.txt"
-              onChange={(e) => {
-                setFile(e.target.files[0]);
-                setUploadStatus("");
-                setError("");
-              }}
-            />
-
-            <button onClick={uploadDocument}>
-              Upload
-            </button>
+        <section className="card upload-card">
+          <div className="section-header">
+            <div>
+              <h2>Knowledge Base</h2>
+              <p>
+                Upload a PDF, DOCX, or TXT document to index it for retrieval.
+              </p>
+            </div>
           </div>
 
-          {file && (
-            <p className="selected-file">
-              Selected: {file.name}
-            </p>
-          )}
+          <div className="upload-area">
+
+            <div className="file-input-wrapper">
+              <input
+                id="file-upload"
+                type="file"
+                accept=".pdf,.docx,.txt"
+                onChange={(event) => {
+                  setFile(event.target.files[0]);
+                  setUploadStatus("");
+                  setError("");
+                }}
+              />
+
+              <label htmlFor="file-upload" className="file-label">
+                <span className="upload-icon">↑</span>
+
+                <span>
+                  {file
+                    ? file.name
+                    : "Choose a document"}
+                </span>
+              </label>
+            </div>
+
+            <button
+              className="primary-button"
+              onClick={uploadDocument}
+              disabled={uploading}
+            >
+              {uploading ? "Indexing..." : "Upload & Index"}
+            </button>
+
+          </div>
 
           {uploadStatus && (
-            <p className="success">
-              {uploadStatus}
-            </p>
+            <div className="success-message">
+              ✓ {uploadStatus}
+            </div>
           )}
         </section>
 
-        <section className="card">
-          <h2>Ask a Question</h2>
+
+        <section className="card question-card">
+
+          <div className="section-header">
+            <div>
+              <h2>Ask a Question</h2>
+              <p>
+                The assistant answers using information retrieved from your documents.
+              </p>
+            </div>
+          </div>
 
           <textarea
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(event) => setQuery(event.target.value)}
+            onKeyDown={handleKeyDown}
             placeholder="Example: What is the objective of the Travel Policy?"
             rows={4}
           />
 
-          <button
-            className="ask-button"
-            onClick={askQuestion}
-            disabled={loading}
-          >
-            {loading ? "Thinking..." : "Ask Question"}
-          </button>
+          <div className="question-footer">
+            <span className="shortcut">
+              Ctrl + Enter to ask
+            </span>
+
+            <button
+              className="primary-button ask-button"
+              onClick={askQuestion}
+              disabled={loading}
+            >
+              {loading ? "Searching..." : "Ask Question"}
+            </button>
+          </div>
+
         </section>
 
+
         {error && (
-          <section className="error">
-            {error}
-          </section>
+          <div className="error-message">
+            <strong>Error:</strong> {error}
+          </div>
         )}
 
+
         {answer && (
-          <section className="card">
-            <h2>Answer</h2>
+          <section className="card answer-card">
+
+            <div className="section-header">
+              <div>
+                <h2>Answer</h2>
+                <p>
+                  Generated from retrieved document context.
+                </p>
+              </div>
+            </div>
 
             <div className="answer">
               {answer}
             </div>
 
+
             {sources.length > 0 && (
-              <>
+              <div className="sources-section">
+
                 <h3>Sources</h3>
 
                 <div className="sources">
+
                   {sources.map((source, index) => (
                     <div className="source" key={index}>
-                      <span>📄</span>
 
-                      <div>
-                        <strong>{source.document}</strong>
-                        <p>
-                          Page {source.page_number}
-                        </p>
+                      <div className="source-icon">
+                        📄
                       </div>
+
+                      <div className="source-content">
+
+                        <strong>
+                          {source.document}
+                        </strong>
+
+                        <span>
+                          Page {source.page_number}
+                        </span>
+
+                      </div>
+
                     </div>
                   ))}
+
                 </div>
-              </>
+
+              </div>
             )}
+
           </section>
         )}
 
       </main>
+
+      <footer className="footer">
+        Enterprise RAG · FastAPI · FAISS · Gemini
+      </footer>
+
     </div>
   );
 }
