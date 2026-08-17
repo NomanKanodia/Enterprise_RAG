@@ -1,43 +1,29 @@
-uvicorn app.main:app --reload
+# Document Search and Question Answering System
 
-
-# Enterprise RAG
-
-An enterprise-grade Retrieval-Augmented Generation (RAG) system that allows users to upload company documents and ask questions using an LLM with accurate document citations.
-
-## Tech Stack
-
-- FastAPI
-- Python
-- Pydantic
-- React (Coming Soon)
-- FAISS (Coming Soon)
-- Sentence Transformers (Coming Soon)
+A RAG-based application that allows users to upload documents and ask questions about their content. The system retrieves relevant document chunks using semantic search and generates grounded answers using Google Gemini.
 
 ## Features
 
-### ✅ Completed
+- Upload PDF, DOCX, and TXT documents
+- Parse and process uploaded documents
+- Split documents into smaller chunks
+- Generate embeddings using Sentence Transformers
+- Store and search embeddings using FAISS
+- Retrieve relevant document content for user queries
+- Generate grounded answers using Google Gemini
+- Provide document and page-level sources
+- React-based frontend with FastAPI backend
 
-- Project setup
-- FastAPI backend
-- REST API architecture
-- Document upload API
-- PDF, DOCX and TXT validation
-- UUID-based file storage
-- Pydantic response schemas
-- Layered architecture
-- Swagger documentation
+## Tech Stack
 
-### 🚧 In Progress
+- **Frontend:** React, Vite
+- **Backend:** FastAPI, Python
+- **Embeddings:** Sentence Transformers
+- **Vector Store:** FAISS
+- **LLM:** Google Gemini
+- **Document Processing:** PyMuPDF
+- **Chunking:** LangChain Text Splitters
 
-- Document text extraction
-
-### 📅 Planned
-
-- Document chunking
-- Embeddings
-- FAISS vector database
-- Semantic search
-- LLM integration
-- Chat interface
-- Docker deployment
+├── .env.example
+├── .gitignore
+└── README.md
