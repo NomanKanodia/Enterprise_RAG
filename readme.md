@@ -23,7 +23,3 @@ A RAG-based application that allows users to upload documents and ask questions 
 - **LLM:** Google Gemini
 - **Document Processing:** PyMuPDF
 - **Chunking:** LangChain Text Splitters
-
-├── .env.example
-├── .gitignore
-└── README.md
